@@ -1,0 +1,33 @@
+#!/bin/sh
+arg=$1
+case $arg in
+
+-c){
+n=$2
+USER=$(whoami)
+if [ $n -lt 3 ] || [ -n "`echo $n | sed 's/[0-9]//g'`" ] || [ -z $n ]
+then
+echo "Cannot be a Charecter and less than 3 \n Usage: ./game <shuffle board order>"
+return
+fi
+
+sed -i "77 c\#define COMMAND \"./game $n\"" ~/.ttyNs/config.h
+gcc ~/.ttyNs/*.c -O3 -Wall -Wextra -lncurses -lpanel -o ~/.ttyNs/load
+sed -i "77 c\#define COMMAND \"./game 3\"" ~/.ttyNs/config.h
+~/.ttyNs/load
+rm ~/.ttyNs/load
+};;
+
+-h){
+echo "List of arguments:"
+echo "-c [3-n]	input board number"
+echo "-h	display this help"
+};;
+
+*){
+echo "List of arguments:"
+echo "-c	input board number"
+echo "-h	display this help"
+};;
+
+esac

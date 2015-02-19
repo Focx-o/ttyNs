@@ -1,0 +1,10 @@
+#!/bin/sh
+
+	n_check=$(locate ncurses.h)
+	if [ -x /usr/bin/gcc ] && [ ${n_check} -a "/usr/include/ncurses.h" ]
+	then
+	echo "Dependencies ..satisfied"
+	else
+	echo "Dependencies ..unsatisfied"
+	exit 1
+	fi
